@@ -7,11 +7,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/sign-up', function(req, res, next) {
-  res.send("Working")
+  res.render("signUp")
 })
 
 router.get('/sign-in', (req, res, next) => {
-  res.send("Working")
+  res.render("signIn")
 })
 
 module.exports = router;

@@ -9,10 +9,11 @@ html
   body
     nav(class="navbar bg-info nav-color")
       div(class="container-fluid text-white")
-        h1 Members Only
+        h1 
+          a.text-decoration-none(href="/") Members Only
         ul(class="d-flex justify-content-around list-unstyled") 
           li 
-            a(href="sign-up") Sign-up 
+            a.text-decoration-none(href="sign-up") Sign-up 
           li 
-            a(href="sign-in") Sign-in
+            a.text-decoration-none(href="sign-in") Sign-in
     block content
