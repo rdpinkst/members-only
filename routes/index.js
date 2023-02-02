@@ -2,13 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { body, check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 const User = require('../models/user')
 
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+  res.render('index', { 
+    title: 'Express',
+    user: req.user,
+  });
 });
 
 router.get('/sign-up', function(req, res, next) {
@@ -82,6 +86,21 @@ router.post('/sign-up',
 
 router.get('/sign-in', (req, res, next) => {
   res.render("signIn")
+})
+
+router.post('/sign-in', 
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/sign-in'
+  }))
+
+router.get('/log-out', (req, res, next) => {
+  req.logout(function(err) {
+    if(err) {
+      return next(err);
+    }
+    res.redirect('/sign-in');
+  })
 })
 
 module.exports = router;

@@ -12,8 +12,12 @@ html
         h1 
           a.text-decoration-none(href="/") Members Only
         ul(class="d-flex justify-content-around list-unstyled") 
-          li 
-            a.text-decoration-none(href="sign-up") Sign-up 
-          li 
-            a.text-decoration-none(href="sign-in") Sign-in
+          if(!user)
+            li 
+              a.text-decoration-none(href="sign-up") Sign-up 
+            li 
+              a.text-decoration-none(href="sign-in") Sign-in
+          else
+            li 
+              a.text-decoration-none(href="log-out") Log Out
     block content
