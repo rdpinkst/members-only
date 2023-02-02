@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+
+const User = require('../models/user')
 
 
 /* GET home page. */
@@ -35,6 +38,10 @@ router.post('/sign-up',
     .trim()
     .isLength({ min: 1 })
     .escape(),
+  check('password').exists(),
+  check('confirmPassword', 'Confirm password must match password field.')
+    .exists()
+    .custom((value, { req }) => value === req.body.password),
 
   (req, res, next) => {
 
@@ -49,6 +56,27 @@ router.post('/sign-up',
     }
     
     // Need to use bcrypt to encrypt password
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      if(err) {
+        return next(err);
+      }
+
+      const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: hashedPassword,
+        membership: false,
+      })
+
+      newUser.save((err) => {
+        if(err) {
+          return next(err);
+        }
+
+        res.redirect('/');
+      })
+    })
   
 });
 

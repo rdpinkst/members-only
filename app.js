@@ -6,8 +6,10 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
 
+require('dotenv').config();
+
+const mongoose = require('mongoose');
 const mongodb = process.env.MONGO_CONNECT;
 mongoose.connect(mongodb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
@@ -29,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secrete: process.env.SESS_SECRETE, resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESS_SECRETE, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
