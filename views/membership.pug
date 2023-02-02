@@ -2,11 +2,9 @@ extends layout
 
 block content 
   div.d-flex.justify-content-center.align-items-center.mt-5.container-mg
-    form.form-padding(method="post" action="/sign-in") 
-      h1.text-center SIGN IN
-      div.mb-3
-        input.form-control(type="text" id="username" placeholder="Username" name="username")
+    form.form-padding(method= "post" action="/member") 
+      h1.text-center Membership status: #{user.membership === true ? "VIP Status" : "Normal User"}
       div.mb-3
         input.form-control(type="password" id="password" placeholder="Password" name="password")
       div.mb-3
-        button.btn.btn-primary Sign In
+        button.btn.btn-primary Sign Up
