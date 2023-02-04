@@ -4,7 +4,8 @@ const { body, check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-const User = require('../models/user')
+const User = require('../models/user');
+
 
 
 /* GET home page. */
@@ -108,5 +109,46 @@ router.get('/member', (req, res, next) => {
     user: req.user
   })
 })
+
+router.post('/member', 
+  body('password')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+      res.render('member', {
+        userInfo: req.body,
+        errors: errors.array(),
+      })
+      return;
+    }
+
+    if(req.body.password === process.env.MEMBERS_VIP) {
+      const userUpdate = new User({
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        username: req.user.username,
+        password: req.user.password,
+        membership: true,
+        _id: req.user._id,
+      })
+
+      User.findByIdAndUpdate(req.user._id, userUpdate, {}, (err, theuser) => {
+        if(err) {
+          return next(err);
+        }
+      })
+    }
+    res.redirect('/');
+
+  }
+  )
+
+  router.get('/message', (req, res, next) => {
+    res.render('message');
+  })
 
 module.exports = router;

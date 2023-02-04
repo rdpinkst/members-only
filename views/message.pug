@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+  div.d-flex.justify-content-center.align-items-center.mt-5.container-mg
+    form.form-padding(method= "post" action="/message") 
+      div.mb-3
+        textarea.form-control(id="message" placeholder="Write your message" name="message")
+      div.mb-3
+        button.btn.btn-primary Post Message
