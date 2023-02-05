@@ -8,9 +8,14 @@ block content
     p Welcome back
     p=user.username
     p VIP Status: #{user.membership}
-    if(messages.length > 0)
-      div.card
-      each message in messages 
-        div.card-body
-          p #{message.message}
+  if(messages.length > 0)
+    div.card
+    each message in messages 
+      div.card-body
+        if(user && user.membership)
+          p #[strong #{message.user.username}]-  #{message.message}
+          p #{message.postDate.toLocaleDateString()}-#{message.postDate.getHours()+":"+message.postDate.getMinutes()}
+        else 
+          p ANONYMOUS-  #{message.message}
+      
   
