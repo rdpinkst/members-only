@@ -8,4 +8,9 @@ block content
     p Welcome back
     p=user.username
     p VIP Status: #{user.membership}
+    if(messages.length > 0)
+      div.card
+      each message in messages 
+        div.card-body
+          p #{message.message}
   

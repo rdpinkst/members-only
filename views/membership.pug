@@ -3,7 +3,7 @@ extends layout
 block content 
   div.d-flex.justify-content-center.align-items-center.mt-5.container-mg
     form.form-padding(method= "post" action="/member") 
-      h1.text-center Membership status: #{user.membership === true ? "VIP Status" : "Normal User"}
+      h1.text-center Membership status: #{user.membership === 'true' ? "VIP Status" : "Normal User"}
       div.mb-3
         input.form-control(type="password" id="password" placeholder="Password" name="password")
       div.mb-3
