@@ -174,4 +174,10 @@ router.post(
   }
 );
 
+router.get("/admin", (req,res, next) => {
+  res.render('admin', {
+    user: req.user
+  })
+})
+
 module.exports = router;

@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+  div.d-flex.justify-content-center.align-items-center.mt-5.container-mg
+    form.form-padding(method= "post" action="/admin") 
+      h1 Become an Admin
+      div.mb-3
+        input.form-control(type="password" id="admin" placeholder="Admin Password" name="admin")
+      div.mb-3
+        button.btn.btn-primary Submit
