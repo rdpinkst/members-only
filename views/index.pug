@@ -13,7 +13,10 @@ block content
           p #[strong #{message.user.username}]-  #{message.message}
           p #{message.postDate.toLocaleDateString()}-#{message.postDate.getHours()+":"+message.postDate.getMinutes()}
           if(user.admin)
-            a Delete
+            form(method='post' action='')
+              div.form-group
+                input#adminpassword.form-control(type='hidden' name='postid' required='true' value=message._id)
+                button.btn.btn-primary(type='submit') Delete
         else 
           p ANONYMOUS-  #{message.message}
       

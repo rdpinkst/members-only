@@ -24,6 +24,15 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.post("/", (req, res, next) => {
+  Post.findByIdAndRemove(req.body.postid, (err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 router.get("/sign-up", function (req, res, next) {
   res.render("signUp");
 });
@@ -98,7 +107,7 @@ router.get("/log-out", (req, res, next) => {
 });
 
 router.get("/member", (req, res, next) => {
-  console.log(req.user)
+  console.log(req.user);
   res.render("membership", {
     user: req.user,
   });
@@ -174,23 +183,24 @@ router.post(
   }
 );
 
-router.get("/admin", (req,res, next) => {
-  res.render('admin', {
-    user: req.user
-  })
-})
+router.get("/admin", (req, res, next) => {
+  res.render("admin", {
+    user: req.user,
+  });
+});
 
-router.post("/admin", 
+router.post(
+  "/admin",
   body("admin").trim().isLength({ min: 1 }).escape(),
   (req, res, next) => {
     const errors = validationResult(req);
 
-    if(!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
       res.render("admin", {
         user: req.user,
         message: req.body.admin,
         error: errors.array(),
-      })
+      });
       return;
     }
 
@@ -212,7 +222,7 @@ router.post("/admin",
       });
     }
     res.redirect("/");
-
-})
+  }
+);
 
 module.exports = router;
