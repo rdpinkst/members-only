@@ -180,4 +180,39 @@ router.get("/admin", (req,res, next) => {
   })
 })
 
+router.post("/admin", 
+  body("admin").trim().isLength({ min: 1 }).escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+      res.render("admin", {
+        user: req.user,
+        message: req.body.admin,
+        error: errors.array(),
+      })
+      return;
+    }
+
+    if (req.body.admin === process.env.ADMIN_PASSWORD) {
+      const userUpdate = new User({
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        username: req.user.username,
+        password: req.user.password,
+        membership: req.user.membership,
+        admin: true,
+        _id: req.user._id,
+      });
+
+      User.findByIdAndUpdate(req.user._id, userUpdate, {}, (err, theuser) => {
+        if (err) {
+          return next(err);
+        }
+      });
+    }
+    res.redirect("/");
+
+})
+
 module.exports = router;
