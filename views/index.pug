@@ -1,9 +1,6 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-
   if(user) 
     p Welcome back
     p=user.username
@@ -11,10 +8,12 @@ block content
   if(messages.length > 0)
     div.card
     each message in messages 
-      div.card-body
+      div.card-body.pb-0
         if(user && user.membership)
           p #[strong #{message.user.username}]-  #{message.message}
           p #{message.postDate.toLocaleDateString()}-#{message.postDate.getHours()+":"+message.postDate.getMinutes()}
+          if(user.admin)
+            a Delete
         else 
           p ANONYMOUS-  #{message.message}
       
