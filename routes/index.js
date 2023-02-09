@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
         return next(err);
       }
       res.render("index", {
-        title: "Express",
+        title: "Members Only",
         user: req.user,
         messages: postList,
       });
@@ -34,7 +34,9 @@ router.post("/", (req, res, next) => {
 });
 
 router.get("/sign-up", function (req, res, next) {
-  res.render("signUp");
+  res.render("signUp", {
+    title: "Sign Up"
+  });
 });
 
 router.post(
@@ -54,6 +56,7 @@ router.post(
 
     if (!errors.isEmpty()) {
       res.render("signUp", {
+        title: "Sign Up",
         userInfo: req.body,
         errors: errors.array(),
       });
@@ -86,7 +89,9 @@ router.post(
 );
 
 router.get("/sign-in", (req, res, next) => {
-  res.render("signIn");
+  res.render("signIn", {
+    title: "Sign In"
+  });
 });
 
 router.post(
@@ -109,6 +114,7 @@ router.get("/log-out", (req, res, next) => {
 router.get("/member", (req, res, next) => {
   console.log(req.user);
   res.render("membership", {
+    title: "Membership",
     user: req.user,
   });
 });
@@ -121,6 +127,7 @@ router.post(
 
     if (!errors.isEmpty()) {
       res.render("member", {
+        title: "Membership",
         userInfo: req.body,
         errors: errors.array(),
       });
@@ -149,6 +156,7 @@ router.post(
 
 router.get("/message", (req, res, next) => {
   res.render("message", {
+    title: "Message",
     user: req.user,
   });
 });
@@ -161,6 +169,7 @@ router.post(
 
     if (!errors.isEmpty) {
       res.render("message", {
+        title: "Message",
         user: req.user,
         message: req.body.message,
         error: errors.array(),
@@ -185,6 +194,7 @@ router.post(
 
 router.get("/admin", (req, res, next) => {
   res.render("admin", {
+    title: "Admin",
     user: req.user,
   });
 });
@@ -197,6 +207,7 @@ router.post(
 
     if (!errors.isEmpty()) {
       res.render("admin", {
+        title: "Admin",
         user: req.user,
         message: req.body.admin,
         error: errors.array(),
