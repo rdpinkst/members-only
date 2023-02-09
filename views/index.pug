@@ -1,23 +1,25 @@
 extends layout
 
 block content
-  if(user) 
-    p Welcome back
-    p=user.username
-    p VIP Status: #{user.membership}
-  if(messages.length > 0)
-    div.card
-    each message in messages 
-      div.card-body.pb-0
+  div.sides
+    if(messages.length > 0)
+      each message in messages 
         if(user && user.membership)
-          p #[strong #{message.user.username}]-  #{message.message}
-          p #{message.postDate.toLocaleDateString()}-#{message.postDate.getHours()+":"+message.postDate.getMinutes()}
-          if(user.admin)
-            form(method='post' action='')
-              div.form-group
-                input#adminpassword.form-control(type='hidden' name='postid' required='true' value=message._id)
-                button.btn.btn-primary(type='submit') Delete
+          div.card.mb-3
+            div.card-body
+              h5 #[strong #{message.user.username}]  
+              p #{message.message}
+              div.d-flex.justify-content-between
+                p #{message.postDate.toLocaleDateString()}-#{message.postDate.getHours()+":"+message.postDate.getMinutes()}
+                if(user.admin)
+                  form(method='post' action='')
+                    div.form-group
+                      input#adminpassword.form-control(type='hidden' name='postid' required='true' value=message._id)
+                      button.btn.btn-primary(type='submit') Delete
         else 
-          p ANONYMOUS-  #{message.message}
+          div.card.mb-3 
+            div.card-body 
+              h5 #[strong ANONYMOUS]
+              p #{message.message}
       
   

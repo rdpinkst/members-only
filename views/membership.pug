@@ -1,7 +1,7 @@
 extends layout 
 
 block content 
-  div.d-flex.justify-content-center.align-items-center.mt-5.container-mg
+  div.d-flex.justify-content-center.align-items-center.container-mg
     form.form-padding(method= "post" action="/member") 
       h1.text-center Membership status: #{user.membership ? "VIP Status" : "Normal User"}
       div.mb-3

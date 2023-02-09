@@ -17,8 +17,13 @@ ul {
   margin-left: 33%;
   border: 1px solid #565656;
   border-radius: 25px;
+  margin-top: 7.5rem;
 }
 .form-padding{
   width: 100%;
   padding: 25px 50px;
+}
+.sides{
+  margin: 7rem 30vw;
+  overflow: scroll;
 }
